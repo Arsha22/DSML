@@ -5,7 +5,7 @@ class Greeter:
         if loud:
              print('HELLO, %s!' % self.name.upper())
         else:
-             print('HELLO, %s' % self.name.lower())
+             print('Hello, %s' % self.name)
 g=Greeter('Fred')
 g.greet()
 g.greet(loud=True)
