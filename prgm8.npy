@@ -1,0 +1,89 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyOh8wUa/0KIDtngIVO9RCif",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Arsha22/DSML/blob/main/prgm8.npy\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 4,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "_02-U8HVTmHm",
+        "outputId": "e0d4d3ac-cdfa-4cdf-c42a-649c195f96eb"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "A=  [[ 1  2  3  4  5  6  7  8  9 10]\n",
+            " [11 12 13 14 15 16 17 18 19 20]\n",
+            " [21 22 23 24 25 26 27 28 29 30]]\n",
+            "\n",
+            "Transform of the original matrix using svd is:\n",
+            "[[-18.52157747   6.47697214]\n",
+            " [-49.81310011   1.91182038]\n",
+            " [-81.10462276  -2.65333138]]\n",
+            "\n",
+            "Transformed version:\n",
+            "[[18.52157747  6.47697214]\n",
+            " [49.81310011  1.91182038]\n",
+            " [81.10462276 -2.65333138]]\n"
+          ]
+        }
+      ],
+      "source": [
+        "#svd for dimensionality reduction\n",
+        "from numpy import array,diag,zeros\n",
+        "from sklearn.decomposition import TruncatedSVD\n",
+        "from numpy.linalg import svd\n",
+        "A= array([\n",
+        "    [1,2,3,4,5,6,7,8,9,10],\n",
+        "    [11,12,13,14,15,16,17,18,19,20],\n",
+        "    [21,22,23,24,25,26,27,28,29,30]])\n",
+        "print(\"A= \",A)\n",
+        "print(\"\")\n",
+        "U,s,VT=svd(A)\n",
+        "sigma=zeros((A.shape[0],A.shape[1]))\n",
+        "sigma[:A.shape[0],:A.shape[0]]=diag(s)\n",
+        "sigma=sigma[:,:2]\n",
+        "VT=VT[:2,:]\n",
+        "T=U.dot(sigma)\n",
+        "T=A.dot(VT.T)\n",
+        "print(\"Transform of the original matrix using svd is:\")\n",
+        "print(T)\n",
+        "print(\"\")\n",
+        "svd=TruncatedSVD(2)\n",
+        "svd.fit(A)\n",
+        "result=svd.transform(A)\n",
+        "print(\"Transformed version:\")\n",
+        "print(result)"
+      ]
+    }
+  ]
+}
